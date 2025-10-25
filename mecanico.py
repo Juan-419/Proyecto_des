@@ -62,4 +62,3 @@ def actualizar_mecanico(mecanico_id: int, mecanico_actualizado: Mecanico, sessio
     session.commit()
     session.refresh(mecanico_db)
     return mecanico_db
-

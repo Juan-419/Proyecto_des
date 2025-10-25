@@ -1,4 +1,4 @@
-# reporte.py  (o reports.py)
+
 from fastapi import APIRouter, Depends
 from fastapi.responses import FileResponse
 from sqlmodel import Session, select
@@ -20,22 +20,24 @@ router = APIRouter(prefix="/reportes", tags=["Reportes"])
     description="Genera un reporte PDF con listas detalladas de clientes, carros, mecánicos, reparaciones y SOATs."
 )
 def generar_reporte_pdf(session: Session = Depends(get_session)):
-    # Consultas
-    clientes = session.exec(select(Cliente)).all()
-    carros = session.exec(select(Carro)).all()
-    mecanicos = session.exec(select(Mecanico)).all()
-    reparaciones = session.exec(select(Reparacion)).all()
-    soats = session.exec(select(SOAT)).all()   # <- usar nombre en minúscula
+   
+    clientes = session.exec(select(Cliente).where(Cliente.active == True)).all() 
+    carros = session.exec(select(Carro).where(Carro.active == True)).all()      
+    mecanicos = session.exec(select(Mecanico).where(Mecanico.active == True)).all()
+    reparaciones = session.exec(select(Reparacion).where(Reparacion.active == True)).all() 
+
+    soats = session.exec(select(SOAT)).all()
 
     buffer = BytesIO()
     c = canvas.Canvas(buffer, pagesize=letter)
     c.setTitle("Reporte Detallado del Taller")
 
-    # Encabezado
+   
     c.setFont("Helvetica-Bold", 16)
     c.drawString(170, 770, "Reporte Detallado del Taller")
 
     y = 740
+
     c.setFont("Helvetica-Bold", 14)
     c.drawString(50, y, f"Total Clientes: {len(clientes)} | Carros: {len(carros)} | Mecánicos: {len(mecanicos)} | Reparaciones: {len(reparaciones)} | SOATs: {len(soats)}")
     y -= 30
@@ -46,7 +48,7 @@ def generar_reporte_pdf(session: Session = Depends(get_session)):
     y -= 20
     c.setFont("Helvetica", 11)
     for cliente in clientes:
-        if y < 60:  # salto de página
+        if y < 60:  
             c.showPage()
             y = 750
             c.setFont("Helvetica", 11)
@@ -87,6 +89,9 @@ def generar_reporte_pdf(session: Session = Depends(get_session)):
             c.setFont("Helvetica", 11)
         nombre = getattr(mec, "nombre", "")
         especialidad = getattr(mec, "especialidad", "")
+    
+
+
         c.drawString(60, y, f"ID: {mec.id} | Nombre: {nombre} | Especialidad: {especialidad}")
         y -= 15
 
@@ -125,7 +130,7 @@ def generar_reporte_pdf(session: Session = Depends(get_session)):
         c.drawString(60, y, f"ID: {s.id} | Carro ID: {carro_id} | Numero SOAT: {numero} | Vigencia: {fecha_vig}")
         y -= 15
 
-    # Guardar el PDF
+
     c.save()
     buffer.seek(0)
 

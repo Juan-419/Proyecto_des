@@ -63,7 +63,7 @@ def eliminar_cliente(cliente_id: int, session: Session = Depends(get_session)):
 
     
     
-# 🔄 Actualizar cliente (PUT)
+
 @router.put("/{cliente_id}", response_model=Cliente, summary="Actualizar cliente completo")
 def actualizar_cliente(cliente_id: int, cliente_actualizado: Cliente, session: Session = Depends(get_session)):
     cliente_db = session.get(Cliente, cliente_id)
@@ -78,4 +78,3 @@ def actualizar_cliente(cliente_id: int, cliente_actualizado: Cliente, session: S
     session.commit()
     session.refresh(cliente_db)
     return cliente_db
-
