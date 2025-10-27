@@ -16,7 +16,7 @@ class ClienteBase(SQLModel):
 class Cliente(ClienteBase, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
     active: bool = Field(default=True)
-    carros: List["Carro"] = Relationship(back_populates="cliente")  ## Relacion uno a uno
+    carros: List["Carro"] = Relationship(back_populates="cliente")  ## Relacion uno a muchos
 
 class ClienteCreate(ClienteBase):
     pass
@@ -33,7 +33,7 @@ class Carro(CarroBase, table=True):
     cliente_id: Optional[int] = Field(default=None, foreign_key="cliente.id", nullable=True)
     active: bool = Field(default=True)
     cliente: Optional[Cliente] = Relationship(back_populates="carros")
-    soat: Optional["SOAT"] = Relationship(back_populates="carro", sa_relationship_kwargs={"uselist": False})
+    soat: Optional["SOAT"] = Relationship(back_populates="carro", sa_relationship_kwargs={"uselist": False}) ## Relacion uno a uno
     reparaciones: List["Reparacion"] = Relationship(back_populates="carro")
 
 class CarroCreate(CarroBase):
