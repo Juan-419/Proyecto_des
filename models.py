@@ -3,7 +3,7 @@ from datetime import date
 from sqlmodel import SQLModel, Field, Relationship
 
 
-class ReparacionMecanicoLink(SQLModel, table=True):
+class ReparacionMecanicoLink(SQLModel, table=True):  ## Relacion muchos a muchos
     reparacion_id: Optional[int] = Field(default=None, foreign_key="reparacion.id", primary_key=True)
     mecanico_id: Optional[int] = Field(default=None, foreign_key="mecanico.id", primary_key=True)
 
@@ -16,7 +16,7 @@ class ClienteBase(SQLModel):
 class Cliente(ClienteBase, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
     active: bool = Field(default=True)
-    carros: List["Carro"] = Relationship(back_populates="cliente")
+    carros: List["Carro"] = Relationship(back_populates="cliente")  ## Relacion uno a uno
 
 class ClienteCreate(ClienteBase):
     pass
@@ -45,7 +45,7 @@ class SOATBase(SQLModel):
 
 class SOAT(SOATBase, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
-    carro_id: Optional[int] = Field(default=None, foreign_key="carro.id", unique=True, nullable=True)
+    carro_id: Optional[int] = Field(default=None, foreign_key="carro.id", unique=True, nullable=True)  ## Relacion uno a uno 
     carro: Optional[Carro] = Relationship(back_populates="soat")
 
 class SOATCreate(SOATBase):
