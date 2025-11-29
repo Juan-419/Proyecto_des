@@ -14,7 +14,8 @@ app = FastAPI(title="Taller de Carros API")
 
 @app.on_event("startup")
 def on_startup():
-    create_db_and_tables(app)
+    create_db_and_tables()
+
 
 app.include_router(cliente_router, prefix="/clientes", tags=["Clientes"])
 app.include_router(carro_router, prefix="/carros", tags=["Carros"])
