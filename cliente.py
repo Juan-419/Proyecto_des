@@ -5,8 +5,7 @@ from sqlmodel import Session, select, SQLModel, Field, Relationship
 from starlette.status import HTTP_303_SEE_OTHER
 from typing import List, Optional
 from db import get_session 
-from supabase import upload_to_bucket 
-
+from supa.supabase_upload import upload_to_bucket
 class Carro(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
     cliente_id: Optional[int] = Field(default=None, foreign_key="cliente.id")
