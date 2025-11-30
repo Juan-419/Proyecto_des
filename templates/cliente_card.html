@@ -1,0 +1,42 @@
+<div class="card shadow-sm h-100" style="width: 100%;">
+
+{% if show_link|default(True) %}
+<a href="/clientes/{{ cliente.id }}" class="text-decoration-none text-dark"> 
+{% endif %}
+
+{% if cliente.img %}
+<img src="{{ cliente.img }}" alt="{{ cliente.nombre }}"  class="card-img-top" style="height: 200px; object-fit: cover;">
+{% else %}
+<img src="https://placehold.co/600x200/cccccc/333333?text=Sin+Imagen" alt="Sin imagen" class="card-img-top" style="height: 200px; object-fit: cover;">
+{% endif %}
+
+<div class="card-body">
+    <h5 class="card-title">{{ cliente.nombre }}</h5>
+    <p class="card-text text-muted small">ID Cliente: {{ cliente.id }}</p>
+    <ul class="list-group list-group-flush mt-2">
+        <li class="list-group-item"><strong>Teléfono:</strong> {{ cliente.telefono or 'N/A' }}</li>
+        <li class="list-group-item"><strong>Correo:</strong> {{ cliente.correo or 'N/A' }}</li>
+        <li class="list-group-item">
+            <strong>Registro:</strong> Año {{ cliente.anio or 'N/A' }}
+        </li>
+    </ul>
+  </div>
+
+<div class="card-footer d-flex justify-content-between align-items-center">
+    {% if cliente.status %}
+    <span class="badge text-bg-success">Estado: Activo</span>
+    {% else %}
+    <span class="badge text-bg-danger">Estado: Inactivo</span>
+    {% endif %}
+
+    {% if not show_link|default(True) %}
+        <!-- Botón de edición visible solo en la vista de detalle, donde show_link es False -->
+        <a href="/clientes/edit/{{ cliente.id }}" class="btn btn-sm btn-outline-warning">Editar</a>
+    {% endif %}
+</div>
+
+{% if show_link|default(True) %}
+</a>
+{% endif %}
+
+</div>

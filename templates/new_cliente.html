@@ -1,0 +1,65 @@
+{% include 'header.html' %}
+{% include 'navbar.html' %}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow">
+                <div class="card-header bg-success text-white">
+                    <h2 class="text-center mb-0">Registrar Nuevo Cliente</h2>
+                </div>
+                <div class="card-body">
+                    <form method="post" action="/clientes/" enctype="multipart/form-data">
+
+                        <div class="mb-3">
+                            <label for="nombre" class="form-label">Nombre Completo</label>
+                            <input type="text" class="form-control" id="nombre" name="nombre" required placeholder="Ej: Juan Pérez">
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="telefono" class="form-label">Teléfono</label>
+                            <input type="tel" class="form-control" id="telefono" name="telefono" placeholder="Ej: +56912345678">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="correo" class="form-label">Correo Electrónico</label>
+                            <input type="email" class="form-control" id="correo" name="correo" placeholder="Ej: correo@ejemplo.com">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="year" class="form-label">Año de Registro (Dato Adicional)</label>
+                            <input type="number" class="form-control" id="year" name="year" min="1900" max="{{ now().year }}" value="{{ now().year }}">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Estado del Cliente (Status)</label>
+                            <div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="status" id="status_true" value="true" checked>
+                                    <label class="form-check-label" for="status_true">Activo</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="status" id="status_false" value="false">
+                                    <label class="form-check-label" for="status_false">Inactivo</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="img" class="form-label">Imagen del Cliente (Opcional)</label>
+                            <input class="form-control" type="file" id="img" name="img" accept="image/*">
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-success btn-lg mt-3">
+                                Registrar Cliente
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include 'footer.html' %}

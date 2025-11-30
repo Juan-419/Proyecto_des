@@ -1,0 +1,24 @@
+{% include 'header.html' %}
+{% include 'navbar.html' %}
+
+<div class="container mt-5">
+    <a href="/clientes/new" class="btn btn-success mb-4">Crear Nuevo Cliente</a>
+    <h1>Listado de Clientes Activos</h1>
+
+    {% if clientes %}
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+    {% for cliente in clientes %}\
+        <!-- Envolvemos cada card en una columna para el layout responsive -->
+        <div class="col">
+            {% include 'cliente_card.html' with context %} 
+        </div>
+    {% endfor %}
+    </div>
+    {% else %}
+    <div class="alert alert-info" role="alert">
+        No hay clientes activos registrados.
+    </div>
+    {% endif %}
+</div>
+
+{% include 'footer.html' %}

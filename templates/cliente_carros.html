@@ -1,0 +1,50 @@
+{% include 'header.html' %}
+{% include 'navbar.html' %}
+
+<div class="container mt-5">
+    <a href="/clientes/{{ cliente.id }}" class="btn btn-link mb-3">&larr; Volver al Detalle del Cliente</a>
+
+    <h1 class="mb-4">Vehículos de: <span class="text-primary">{{ cliente.nombre }}</span></h1>
+
+    <a href="/carros/new?cliente_id={{ cliente.id }}" class="btn btn-success mb-4">
+        <i class="fas fa-plus"></i> Agregar Nuevo Vehículo
+    </a>
+
+    {% if carros %}
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        {% for carro in carros %}
+        <div class="col">
+            <div class="card h-100 shadow-sm border-{% if carro.activo %}primary{% else %}danger{% endif %}">
+                <div class="card-header bg-{% if carro.activo %}light{% else %}danger text-white{% endif %}">
+                    <h5 class="mb-0">{{ carro.marca }} {{ carro.modelo }}</h5>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">
+                        <strong>Patente:</strong> {{ carro.patente }}<br>
+                        <strong>Año:</strong> {{ carro.year }}<br>
+                        <strong>ID Carro:</strong> {{ carro.id }}
+                    </p>
+                </div>
+                <div class="card-footer d-flex flex-column gap-2">
+                    {% if carro.activo %}
+                        <span class="badge text-bg-success">Estado: Activo</span>
+                    {% else %}
+                        <span class="badge text-bg-danger">Estado: Inactivo</span>
+                    {% endif %}
+                    
+                    <a href="/servicios/carro/{{ carro.id }}" class="btn btn-sm btn-info text-white">Ver Servicios</a>
+                    <a href="/servicios/new?carro_id={{ carro.id }}" class="btn btn-sm btn-outline-primary">Registrar Servicio</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="alert alert-info text-center" role="alert">
+        Este cliente no tiene vehículos registrados aún.
+        <br><a href="/carros/new?cliente_id={{ cliente.id }}" class="btn btn-sm btn-info mt-2">Agregar Primer Vehículo</a>
+    </div>
+    {% endif %}
+</div>
+
+{% include 'footer.html' %}
