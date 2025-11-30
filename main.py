@@ -10,7 +10,9 @@ from mecanico import router as mecanico_router
 from reparacion import router as reparacion_router
 from soat import router as soat_router
 from reporte import router as reportes_router
-from supabase import upload_to_bucket, get_supabase_client 
+from supa.supabase_upload import upload_to_bucket
+from supabase import create_client
+
 app = FastAPI(title="Taller de Carros API")
 
 templates = Jinja2Templates(directory="templates")
