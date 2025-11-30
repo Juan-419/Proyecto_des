@@ -6,22 +6,7 @@ from starlette.status import HTTP_303_SEE_OTHER
 from typing import List, Optional
 from db import get_session 
 from supa.supabase_upload import upload_to_bucket
-class Carro(SQLModel, table=True):
-    id: Optional[int] = Field(default=None, primary_key=True)
-    cliente_id: Optional[int] = Field(default=None, foreign_key="cliente.id")
-    cliente: "Cliente" = Relationship(back_populates="carros") 
-
-class Cliente(SQLModel, table=True):
-    id: Optional[int] = Field(default=None, primary_key=True)
-    nombre: str 
-    telefono: Optional[str] = None 
-    correo: Optional[str] = None 
-    active: bool = True 
-    anio: Optional[int] = None
-    status: bool = True 
-    img: Optional[str] = None
-
-    carros: List[Carro] = Relationship(back_populates="cliente") 
+from models import Cliente, Carro
 
 router = APIRouter(tags=["Clientes"])
 
