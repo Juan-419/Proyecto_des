@@ -41,7 +41,7 @@ def root(request: Request):
         "index.html",
         {
             "request": request,
-            "texto": "¡Servidor de FastAPI Taller de Carros operativo!",
+            "texto": "Bienvenido a la pagina de tu taller de confianza",
             "titulo_pagina": "Taller de Carros - Inicio"
         }
     )
