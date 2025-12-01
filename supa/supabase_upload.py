@@ -11,14 +11,23 @@ def get_supabase_client():
     return supabase
 
 async def upload_to_bucket(file: UploadFile):
-    bucket = "imagenes"  # tu bucket real
+    bucket = "Taller-mult" 
 
-    # Leer contenido del archivo
     content = await file.read()
-    filename = file.filename  # toma el nombre original
 
-    # Subir al bucket
-    supabase.storage.from_(bucket).upload(filename, content)
+    filename = file.filename.replace(" ", "_")
 
-    # URL pública resultante
-    return f"{SUPABASE_URL}/storage/v1/object/public/{bucket}/{filename}"
+    storage_path = f"clientes/{filename}"  
+
+
+    try:
+        supabase.storage.from_(bucket).upload(
+            storage_path,
+            content,
+            file_options={"content-type": file.content_type}
+        )
+    except Exception as e:
+        print("ERROR SUBIENDO ARCHIVO →", e)
+        raise e
+
+    return f"{SUPABASE_URL}/storage/v1/object/public/{bucket}/{storage_path}"
