@@ -16,10 +16,10 @@ router = APIRouter(tags=["Clientes"])
 templates = Jinja2Templates(directory="templates")
 
 
-@router.get("/", response_model=List[Cliente], include_in_schema=False)
+@router.get("/json", response_model=List[Cliente], summary="Listado JSON de clientes")
 def listar_clientes_json(session: Session = Depends(get_session)):
-    """Ruta original para API que lista clientes activos (JSON)"""
     return session.exec(select(Cliente).where(Cliente.active == True)).all()
+
 
 
 @router.get("/eliminados", response_model=List[Cliente], include_in_schema=False)

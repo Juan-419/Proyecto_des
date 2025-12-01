@@ -2,23 +2,73 @@
 {% include 'navbar.html' %}
 
 <div class="container mt-5">
-    <a href="/clientes/new" class="btn btn-success mb-4">Crear Nuevo Cliente</a>
-    <h1>Listado de Clientes Activos</h1>
-
-    {% if clientes %}
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
-    {% for cliente in clientes %}\
-        <!-- Envolvemos cada card en una columna para el layout responsive -->
-        <div class="col">
-            {% include 'cliente_card.html' with context %} 
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+            <h2 class="mb-0 text-center">Listado de Clientes</h2>
         </div>
-    {% endfor %}
-    </div>
-    {% else %}
-    <div class="alert alert-info" role="alert">
-        No hay clientes activos registrados.
-    </div>
-    {% endif %}
-</div>
 
-{% include 'footer.html' %}
+        <div class="card-body">
+
+            <div class="d-flex justify-content-between mb-3">
+                <a href="/clientes/new" class="btn btn-success">
+                    ➕ Nuevo Cliente
+                </a>
+
+                <a href="/clientes/eliminados" class="btn btn-danger">
+                    🗑 Ver Eliminados
+                </a>
+            </div>
+
+            {% if clientes %}
+            <div class="table-responsive">
+                <table class="table table-striped table-hover align-middle">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Teléfono</th>
+                            <th>Correo</th>
+                            <th>Año</th>
+                            <th>Estado</th>
+                            <th>Imagen</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for cliente in clientes %}
+                        <tr>
+                            <td>{{ cliente.id }}</td>
+                            <td>{{ cliente.nombre }}</td>
+                            <td>{{ cliente.telefono or "—" }}</td>
+                            <td>{{ cliente.correo or "—" }}</td>
+                            <td>{{ cliente.anio }}</td>
+
+                            <td>
+                                {% if cliente.active %}
+                                <span class="badge bg-success">Activo</span>
+                                {% else %}
+                                <span class="badge bg-danger">Inactivo</span>
+                                {% endif %}
+                            </td>
+
+                            <td>
+                                {% if cliente.img %}
+                                <img src="{{ cliente.img }}" alt="Foto"
+                                     class="img-thumbnail" style="width: 60px; height: 60px; object-fit: cover;">
+                                {% else %}
+                                <span class="text-muted">Sin imagen</span>
+                                {% endif %}
+                            </td>
+
+                            <td>
+                                <a href="/clientes/{{ cliente.id }}" class="btn btn-primary btn-sm">🔍 Ver</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            {% else %}
+            <h4 class="text-center text-muted mt-3 mb-3">No hay clientes registrados.</h4>
+            {% endif %}
