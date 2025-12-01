@@ -7,6 +7,8 @@ from typing import List, Optional
 from db import get_session 
 from supa.supabase_upload import upload_to_bucket
 from models import Cliente, Carro
+from datetime import datetime
+
 
 router = APIRouter(tags=["Clientes"])
 
@@ -42,8 +44,12 @@ def new_cliente_form(request: Request):
     """Muestra el formulario para registrar un nuevo cliente (new_cliente.html)."""
     return templates.TemplateResponse(
         "new_cliente.html",
-        {"request": request}
+        {
+            "request": request,
+            "current_year": datetime.now().year
+        }
     )
+
 
 @router.get("/{cliente_id}", response_class=HTMLResponse, summary="Detalle de Cliente (HTML)")
 def get_cliente_detail_html(request: Request, cliente_id: int, session: Session = Depends(get_session)):
