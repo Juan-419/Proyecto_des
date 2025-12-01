@@ -1,4 +1,4 @@
-
+{% include 'header.html' %}
 {% include 'navbar.html' %}
 
 <div class="container mt-5">
@@ -6,46 +6,43 @@
         <div class="col-md-8 col-lg-6">
             <div class="card shadow">
                 <div class="card-header bg-primary text-white">
-                    <h2 class="text-center mb-0">Registrar Nuevo Vehículo</h2>
+                    <h2 class="text-center mb-0">Registrar Nuevo Carro</h2>
                 </div>
+
                 <div class="card-body">
-                    {% if cliente_id %}
-                    <p class="text-center text-muted">Asociado al Cliente ID: <strong>{{ cliente_id }}</strong></p>
-                    {% endif %}
-                    
-                    <form method="post" action="/carros/">
-                        
-                        <!-- Campo oculto para cliente_id -->
-                        <input type="hidden" name="cliente_id" value="{{ cliente_id }}">
-                        
+                    <form method="post" action="/carros/new">
+
                         <div class="mb-3">
-                            <label for="patente" class="form-label">Patente (Matrícula)</label>
-                            <input type="text" class="form-control" id="patente" name="patente" required maxlength="10" placeholder="Ej: ABC-123">
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label for="marca" class="form-label">Marca</label>
-                            <input type="text" class="form-control" id="marca" name="marca" required maxlength="50" placeholder="Ej: Toyota">
+                            <label class="form-label">Marca</label>
+                            <input type="text" class="form-control" name="marca" required>
                         </div>
 
                         <div class="mb-3">
-                            <label for="modelo" class="form-label">Modelo</label>
-                            <input type="text" class="form-control" id="modelo" name="modelo" required maxlength="50" placeholder="Ej: Corolla">
+                            <label class="form-label">Modelo</label>
+                            <input type="text" class="form-control" name="modelo" required>
                         </div>
 
                         <div class="mb-3">
-                            <label for="year" class="form-label">Año</label>
-                            <input type="number" class="form-control" id="year" name="year" required min="1900" max="{{ now().year }}" placeholder="Ej: 2015">
+                            <label class="form-label">Placa</label>
+                            <input type="text" class="form-control" name="placa" required>
                         </div>
-                        
-                        <div class="d-grid gap-2">
-                            <button type="submit" class="btn btn-primary btn-lg">
-                                Registrar Vehículo
+
+                        <div class="mb-3">
+                            <label class="form-label">Cliente</label>
+                            <select name="cliente_id" class="form-select" required>
+                                <option value="">-- Seleccione un cliente --</option>
+                                {% for cliente in clientes %}
+                                    <option value="{{ cliente.id }}">{{ cliente.nombre }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-lg mt-3">
+                                Registrar Carro
                             </button>
-                            <a href="/clientes/{{ cliente_id }}" class="btn btn-outline-secondary">
-                                Cancelar y Volver
-                            </a>
                         </div>
+
                     </form>
                 </div>
             </div>
