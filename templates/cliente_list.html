@@ -24,7 +24,6 @@
                             <th>Teléfono</th>
                             <th>Correo</th>
                             <th>Año</th>
-                            <th>Estado</th>
                             <th>Imagen</th>
                             <th>Acciones</th>
                         </tr>
@@ -34,17 +33,9 @@
                         <tr>
                             <td>{{ cliente.id }}</td>
                             <td>{{ cliente.nombre }}</td>
-                            <td>{{ cliente.telefono or "—" }}</td>
-                            <td>{{ cliente.correo or "—" }}</td>
+                            <td>{{ cliente.telefono }}</td>
+                            <td>{{ cliente.correo }}</td>
                             <td>{{ cliente.anio }}</td>
-
-                            <td>
-                                {% if cliente.active %}
-                                <span class="badge bg-success">Activo</span>
-                                {% else %}
-                                <span class="badge bg-danger">Inactivo</span>
-                                {% endif %}
-                            </td>
 
                             <td>
                                 {% if cliente.img %}
@@ -54,14 +45,16 @@
                                 {% endif %}
                             </td>
 
-                            <td class="d-flex gap-1">
-                                <a href="/clientes/{{ cliente.id }}" class="btn btn-primary btn-sm">🔍 Ver</a>
+                            <td>
                                 <a href="/clientes/editar/{{ cliente.id }}" class="btn btn-warning btn-sm">✏ Editar</a>
 
-                                <form method="post" action="/clientes/eliminar/{{ cliente.id }}" onsubmit="return confirm('¿Seguro que deseas eliminar este cliente?');">
-                                    <button type="submit" class="btn btn-danger btn-sm">🗑 Eliminar</button>
-                                </form>
+                                <a href="/clientes/eliminar/{{ cliente.id }}" 
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('¿Seguro que deseas eliminar este cliente?')">
+                                   🗑 Eliminar
+                                </a>
                             </td>
+
                         </tr>
                         {% endfor %}
                     </tbody>
@@ -69,8 +62,9 @@
             </div>
 
             {% else %}
-            <h4 class="text-center text-muted mt-3 mb-3">No hay clientes registrados.</h4>
+            <h4 class="text-center text-muted">No hay clientes registrados.</h4>
             {% endif %}
+
         </div>
     </div>
 </div>

@@ -9,11 +9,12 @@ from supa.supabase_upload import upload_to_bucket
 router = APIRouter()
 
 
+
 @router.get("/", response_class=HTMLResponse)
 def listado_clientes_html(request: Request, session: Session = Depends(get_session)):
     clientes = session.exec(select(Cliente).where(Cliente.active == True)).all()
     return request.app.state.templates.TemplateResponse(
-        "cliente_list.html",
+        "clientes.html",
         {"request": request, "clientes": clientes}
     )
 
@@ -51,8 +52,9 @@ async def editar_cliente(
     cliente.correo = correo
     cliente.anio = anio
 
-    if img and img.filename:
-        url = await upload_to_bucket(img)
+    
+    if img:
+        url = await upload_to_bucket(img, "clientes")
         cliente.img = url
 
     session.add(cliente)
@@ -62,24 +64,34 @@ async def editar_cliente(
 
 
 
-@router.post("/eliminar/{cliente_id}")
+@router.get("/eliminar/{cliente_id}")
 def eliminar_cliente(cliente_id: int, session: Session = Depends(get_session)):
     cliente = session.get(Cliente, cliente_id)
-    if not cliente:
-        return HTMLResponse("Cliente no encontrado", status_code=404)
-
-    cliente.active = False
-    session.add(cliente)
-    session.commit()
+    if cliente:
+        cliente.active = False
+        session.add(cliente)
+        session.commit()
 
     return RedirectResponse("/clientes", status_code=HTTP_303_SEE_OTHER)
 
 
 
 @router.get("/eliminados", response_class=HTMLResponse)
-def listar_eliminados(request: Request, session: Session = Depends(get_session)):
+def eliminados(request: Request, session: Session = Depends(get_session)):
     clientes = session.exec(select(Cliente).where(Cliente.active == False)).all()
     return request.app.state.templates.TemplateResponse(
         "cliente_eliminados.html",
         {"request": request, "clientes": clientes}
     )
+
+
+
+@router.get("/restaurar/{cliente_id}")
+def restaurar_cliente(cliente_id: int, session: Session = Depends(get_session)):
+    cliente = session.get(Cliente, cliente_id)
+    if cliente:
+        cliente.active = True
+        session.add(cliente)
+        session.commit()
+
+    return RedirectResponse("/clientes/eliminados", status_code=HTTP_303_SEE_OTHER)
