@@ -8,6 +8,10 @@ SUPABASE_KEY = os.getenv("SUPABASE_KEY")
 
 supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
 
+def get_supabase_client():
+    return supabase
+
+
 def normalize_filename(filename: str) -> str:
     """
     Elimina acentos, espacios y caracteres no permitidos.
@@ -20,6 +24,7 @@ def normalize_filename(filename: str) -> str:
     filename = "".join(c for c in filename if c in allowed)
 
     return filename
+
 
 async def upload_to_bucket(file: UploadFile):
     bucket = "Taller-mult"
