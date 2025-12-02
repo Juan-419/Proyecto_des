@@ -1,42 +1,71 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="/">⚙️ Taller Mecánico</a>
-    
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow">
+    <div class="container-fluid">
         
-        <!-- Clientes -->
-        <li class="nav-item">
-          <a class="nav-link" href="/clientes/"><i class="fas fa-users"></i> Clientes</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/clientes/new"><i class="fas fa-user-plus"></i> Nuevo Cliente</a>
-        </li>
-        
-        <!-- Vehículos & Servicios -->
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <i class="fas fa-car"></i> Vehículos & Servicios
-          </a>
-          <ul class="dropdown-menu">
+        <a class="navbar-brand fw-bold" href="/">🚗 Taller</a>
 
-            <li><a class="dropdown-item" href="/carros/new"><i class="fas fa-plus"></i> Registrar Vehículo</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#"><i class="fas fa-chart-bar"></i> Reportes/Dashboard (TBD)</a></li>
-          </ul>
-        </li>
-        
-      </ul>
-      
-      <!-- Formulario de búsqueda -->
-      <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Buscar Cliente/Patente" aria-label="Search"/>
-        <button class="btn btn-outline-light" type="submit"><i class="fas fa-search"></i> Buscar</button>
-      </form>
+        <!-- Toggle para móviles -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarMenu" aria-controls="navbarMenu"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Menú principal -->
+        <div class="collapse navbar-collapse" id="navbarMenu">
+
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                <!-- Clientes Dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="clientesDropdown" role="button"
+                       data-bs-toggle="dropdown">
+                        👥 Clientes
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/clientes/">📋 Ver Clientes</a></li>
+                        <li><a class="dropdown-item" href="/clientes/new">➕ Nuevo Cliente</a></li>
+                        <li><a class="dropdown-item" href="/clientes/eliminados">🗑 Eliminados</a></li>
+                    </ul>
+                </li>
+
+                <!-- Carros Dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="carrosDropdown" role="button"
+                       data-bs-toggle="dropdown">
+                        🚗 Carros
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/carros/">📋 Ver Carros</a></li>
+                        <li><a class="dropdown-item" href="/carros/new">➕ Registrar Carro</a></li>
+                        <li><a class="dropdown-item" href="/carros/eliminados">🗑 Carros Eliminados</a></li>
+                    </ul>
+                </li>
+
+                <!-- Mecánicos -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="mecanicosDropdown" role="button"
+                       data-bs-toggle="dropdown">
+                        🔧 Mecánicos
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/mecanicos/">📋 Listado</a></li>
+                        <li><a class="dropdown-item" href="/mecanicos/new">➕ Nuevo Mecánico</a></li>
+                    </ul>
+                </li>
+
+                <!-- Reparaciones -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="reparacionesDropdown" role="button"
+                       data-bs-toggle="dropdown">
+                        🛠 Reparaciones
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/reparaciones/">📋 Listado</a></li>
+                        <li><a class="dropdown-item" href="/reparaciones/new">➕ Nueva Reparación</a></li>
+                    </ul>
+                </li>
+
+            </ul>
+        </div>
     </div>
-  </div>
 </nav>
