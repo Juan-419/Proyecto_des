@@ -22,7 +22,7 @@ def listado_clientes_html(request: Request, session: Session = Depends(get_sessi
 @router.get("/new", response_class=HTMLResponse)
 def formulario_nuevo_cliente(request: Request):
     return request.app.state.templates.TemplateResponse(
-        "nuevo_cliente.html",
+        "new_cliente.html",
         {"request": request}
     )
 
