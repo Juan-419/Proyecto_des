@@ -1,4 +1,5 @@
 import os
+import unicodedata
 from supabase import create_client
 from fastapi import UploadFile
 
@@ -7,18 +8,27 @@ SUPABASE_KEY = os.getenv("SUPABASE_KEY")
 
 supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
 
-def get_supabase_client():
-    return supabase
+def normalize_filename(filename: str) -> str:
+    """
+    Elimina acentos, espacios y caracteres no permitidos.
+    """
+    filename = filename.replace(" ", "_")
+
+    filename = unicodedata.normalize("NFKD", filename).encode("ascii", "ignore").decode("ascii")
+
+    allowed = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789._-"
+    filename = "".join(c for c in filename if c in allowed)
+
+    return filename
 
 async def upload_to_bucket(file: UploadFile):
-    bucket = "Taller-mult" 
+    bucket = "Taller-mult"
 
     content = await file.read()
 
-    filename = file.filename.replace(" ", "_")
+    filename = normalize_filename(file.filename)
 
-    storage_path = f"clientes/{filename}"  
-
+    storage_path = f"clientes/{filename}"
 
     try:
         supabase.storage.from_(bucket).upload(
