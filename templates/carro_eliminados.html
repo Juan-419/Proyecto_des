@@ -1,0 +1,29 @@
+{% include 'header.html' %}
+{% include 'navbar.html' %}
+
+<div class="container mt-4">
+    <h2>Carros Eliminados</h2>
+
+    <table class="table table-bordered">
+        <tr>
+            <th>ID</th>
+            <th>Marca</th>
+            <th>Modelo</th>
+            <th>Placa</th>
+            <th>Acciones</th>
+        </tr>
+        {% for carro in carros %}
+        <tr>
+            <td>{{ carro.id }}</td>
+            <td>{{ carro.marca }}</td>
+            <td>{{ carro.modelo }}</td>
+            <td>{{ carro.placa }}</td>
+            <td>
+                <a href="/carros/restaurar/{{ carro.id }}" class="btn btn-success btn-sm">Restaurar</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+{% include 'footer.html' %}

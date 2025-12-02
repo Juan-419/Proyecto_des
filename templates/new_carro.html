@@ -3,46 +3,31 @@
 
 <div class="container mt-5">
     <div class="row justify-content-center">
-        <div class="col-md-8 col-lg-6">
+        <div class="col-md-6">
             <div class="card shadow">
                 <div class="card-header bg-primary text-white">
-                    <h2 class="text-center mb-0">Registrar Nuevo Carro</h2>
+                    Registrar Carro
                 </div>
-
                 <div class="card-body">
                     <form method="post" action="/carros/new">
 
-                        <div class="mb-3">
-                            <label class="form-label">Marca</label>
-                            <input type="text" class="form-control" name="marca" required>
-                        </div>
+                        <label class="form-label">Marca</label>
+                        <input class="form-control" name="marca" required>
 
-                        <div class="mb-3">
-                            <label class="form-label">Modelo</label>
-                            <input type="text" class="form-control" name="modelo" required>
-                        </div>
+                        <label class="form-label">Modelo</label>
+                        <input class="form-control" name="modelo" required>
 
-                        <div class="mb-3">
-                            <label class="form-label">Placa</label>
-                            <input type="text" class="form-control" name="placa" required>
-                        </div>
+                        <label class="form-label">Placa</label>
+                        <input class="form-control" name="placa" required>
 
-                        <div class="mb-3">
-                            <label class="form-label">Cliente</label>
-                            <select name="cliente_id" class="form-select" required>
-                                <option value="">-- Seleccione un cliente --</option>
-                                {% for cliente in clientes %}
-                                    <option value="{{ cliente.id }}">{{ cliente.nombre }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
+                        <label class="form-label mt-2">Cliente</label>
+                        <select class="form-select" name="cliente_id" required>
+                            {% for cliente in clientes %}
+                                <option value="{{ cliente.id }}">{{ cliente.nombre }}</option>
+                            {% endfor %}
+                        </select>
 
-                        <div class="d-grid">
-                            <button type="submit" class="btn btn-primary btn-lg mt-3">
-                                Registrar Carro
-                            </button>
-                        </div>
-
+                        <button class="btn btn-success mt-3">Guardar</button>
                     </form>
                 </div>
             </div>
