@@ -10,7 +10,7 @@ from mecanico import router as mecanico_router
 from reparacion import router as reparacion_router
 from soat import router as soat_router
 from reporte import router as reportes_router
-from supa.supabase_upload import upload_to_bucket, get_supabase_client
+from supa.supabase_upload import upload_to_bucket
 from supabase import create_client
 
 app = FastAPI(title="Taller de Carros API")
@@ -20,13 +20,9 @@ templates = Jinja2Templates(directory="templates")
 
 @app.on_event("startup")
 def on_startup():
-
     create_db_and_tables()
-    try:
-        get_supabase_client()
-        print(" Conexión a Supabase verificada.")
-    except Exception as e:
-        print(f" Error al inicializar Supabase. La subida de archivos fallará: {e}")
+    print(" Base de datos inicializada y servidor listo.")
+
 
 app.include_router(cliente_router, prefix="/clientes", tags=["Clientes"])
 app.include_router(carro_router, prefix="/carros", tags=["Carros"])
