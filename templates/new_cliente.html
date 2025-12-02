@@ -2,41 +2,46 @@
 {% include 'navbar.html' %}
 
 <div class="container mt-5">
-    <div class="card shadow">
-        <div class="card-header bg-success text-white">
-            <h3 class="text-center mb-0">Registrar Nuevo Cliente</h3>
-        </div>
-        <div class="card-body">
-            <form method="post" enctype="multipart/form-data">
-
-                <div class="mb-3">
-                    <label class="form-label">Nombre</label>
-                    <input type="text" name="nombre" class="form-control" required>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-header bg-success text-white text-center">
+                    <h4>Registrar Nuevo Cliente</h4>
                 </div>
+                <div class="card-body">
 
-                <div class="mb-3">
-                    <label class="form-label">Teléfono</label>
-                    <input type="text" name="telefono" class="form-control">
+                    <form action="/clientes/new" method="post" enctype="multipart/form-data">
+
+                        <div class="mb-3">
+                            <label class="form-label">Nombre</label>
+                            <input type="text" class="form-control" name="nombre" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Teléfono</label>
+                            <input type="text" class="form-control" name="telefono">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Correo</label>
+                            <input type="email" class="form-control" name="correo">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Año</label>
+                            <input type="number" class="form-control" name="anio" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Foto del cliente</label>
+                            <input type="file" class="form-control" name="img" accept="image/*">
+                        </div>
+
+                        <button class="btn btn-success w-100 mt-3">Guardar</button>
+                    </form>
+
                 </div>
-
-                <div class="mb-3">
-                    <label class="form-label">Correo</label>
-                    <input type="email" name="correo" class="form-control">
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label">Año</label>
-                    <input type="number" name="anio" class="form-control" required>
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label">Imagen (opcional)</label>
-                    <input type="file" name="img" class="form-control">
-                </div>
-
-                <button type="submit" class="btn btn-success w-100">Registrar Cliente</button>
-
-            </form>
+            </div>
         </div>
     </div>
 </div>

@@ -9,7 +9,6 @@ from supa.supabase_upload import upload_to_bucket
 router = APIRouter()
 
 
-# ✔ LISTA HTML DE CLIENTES
 @router.get("/", response_class=HTMLResponse)
 def listado_clientes_html(request: Request, session: Session = Depends(get_session)):
     clientes = session.exec(select(Cliente).where(Cliente.active == True)).all()
@@ -19,16 +18,16 @@ def listado_clientes_html(request: Request, session: Session = Depends(get_sessi
     )
 
 
-# ✔ FORMULARIO NUEVO CLIENTE
+
 @router.get("/new", response_class=HTMLResponse)
-def new_cliente_form(request: Request):
+def formulario_nuevo_cliente(request: Request):
     return request.app.state.templates.TemplateResponse(
-        "new_cliente.html",
+        "nuevo_cliente.html",
         {"request": request}
     )
 
 
-# ✔ CREACIÓN CLIENTE POST
+
 @router.post("/new")
 async def crear_cliente(
     nombre: str = Form(...),
@@ -39,10 +38,11 @@ async def crear_cliente(
     session: Session = Depends(get_session)
 ):
     img_url = None
+
     if img:
         img_url = await upload_to_bucket(img, "clientes")
 
-    nuevo = Cliente(
+    nuevo_cliente = Cliente(
         nombre=nombre,
         telefono=telefono,
         correo=correo,
@@ -51,13 +51,14 @@ async def crear_cliente(
         active=True
     )
 
-    session.add(nuevo)
+    session.add(nuevo_cliente)
     session.commit()
+    session.refresh(nuevo_cliente)
 
     return RedirectResponse("/clientes", status_code=HTTP_303_SEE_OTHER)
 
 
-# ✔ FORMULARIO EDITAR CLIENTE
+
 @router.get("/editar/{cliente_id}", response_class=HTMLResponse)
 def editar_cliente_form(cliente_id: int, request: Request, session: Session = Depends(get_session)):
     cliente = session.get(Cliente, cliente_id)
@@ -70,7 +71,7 @@ def editar_cliente_form(cliente_id: int, request: Request, session: Session = De
     )
 
 
-# ✔ PROCESO POST EDICIÓN
+
 @router.post("/editar/{cliente_id}")
 async def editar_cliente(
     cliente_id: int,
@@ -90,10 +91,8 @@ async def editar_cliente(
     cliente.correo = correo
     cliente.anio = anio
 
-    # Subir nueva imagen si existe
     if img:
-        url = await upload_to_bucket(img, "clientes")
-        cliente.img = url
+        cliente.img = await upload_to_bucket(img, "clientes")
 
     session.add(cliente)
     session.commit()
@@ -101,7 +100,7 @@ async def editar_cliente(
     return RedirectResponse("/clientes", status_code=HTTP_303_SEE_OTHER)
 
 
-# ✔ ELIMINAR (Soft delete)
+
 @router.get("/eliminar/{cliente_id}")
 def eliminar_cliente(cliente_id: int, session: Session = Depends(get_session)):
     cliente = session.get(Cliente, cliente_id)
@@ -113,17 +112,18 @@ def eliminar_cliente(cliente_id: int, session: Session = Depends(get_session)):
     return RedirectResponse("/clientes", status_code=HTTP_303_SEE_OTHER)
 
 
-# ✔ LISTADO DE ELIMINADOS
+
 @router.get("/eliminados", response_class=HTMLResponse)
 def eliminados(request: Request, session: Session = Depends(get_session)):
     clientes = session.exec(select(Cliente).where(Cliente.active == False)).all()
+
     return request.app.state.templates.TemplateResponse(
         "cliente_eliminados.html",
         {"request": request, "clientes": clientes}
     )
 
 
-# ✔ RESTAURAR CLIENTE
+
 @router.get("/restaurar/{cliente_id}")
 def restaurar_cliente(cliente_id: int, session: Session = Depends(get_session)):
     cliente = session.get(Cliente, cliente_id)
