@@ -2,58 +2,59 @@
 {% include 'navbar.html' %}
 
 <div class="container mt-5">
-    <a href="/clientes/{{ cliente.id }}" class="btn btn-secondary mb-3">&larr; Volver a Detalle</a>
-    <h1 class="mb-4">Editar Cliente: {{ cliente.nombre }}</h1>
-    <form method="post" action="/clientes/edit/{{ cliente.id }}" enctype="multipart/form-data">
-        
-        <div class="mb-3">
-            <label for="nombre" class="form-label">Nombre</label>
-            <input type="text" class="form-control" id="nombre" name="nombre" value="{{ cliente.nombre }}" required>
+    <div class="card shadow">
+        <div class="card-header bg-warning">
+            <h3 class="mb-0 text-center">Editar Cliente</h3>
         </div>
 
-        <div class="mb-3">
-            <label for="correo" class="form-label">Correo Electrónico</label>
-            <input type="email" class="form-control" id="correo" name="correo" value="{{ cliente.correo }}">
-        </div>
+        <div class="card-body">
 
-        <div class="mb-3">
-            <label for="telefono" class="form-label">Teléfono</label>
-            <input type="text" class="form-control" id="telefono" name="telefono" value="{{ cliente.telefono }}">
-        </div>
+            <form method="post" enctype="multipart/form-data">
 
-        <div class="mb-3">
-            <label for="anio" class="form-label">Año de Registro</label>
-            <input type="number" class="form-control" id="anio" name="anio" min="1900" max="2024" value="{{ cliente.anio }}" required>
-        </div>
+                <div class="mb-3">
+                    <label class="form-label">Nombre</label>
+                    <input type="text" name="nombre" class="form-control" value="{{ cliente.nombre }}" required>
+                </div>
 
-        <div class="mb-3">
-            <label class="form-label d-block">Estado (Activo)</label>
-            <div class="form-check form-check-inline">
-                <!-- Se marca 'checked' según el valor actual de cliente.active -->
-                <input class="form-check-input" type="radio" name="active" id="active_true" value="true" {% if cliente.active %}checked{% endif %}>
-                <label class="form-check-label" for="active_true">Activo</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="active" id="active_false" value="false" {% if not cliente.active %}checked{% endif %}>
-                <label class="form-check-label" for="active_false">Inactivo</label>
-            </div>
-        </div>
+                <div class="mb-3">
+                    <label class="form-label">Teléfono</label>
+                    <input type="text" name="telefono" class="form-control" value="{{ cliente.telefono }}">
+                </div>
 
-        <div class="mb-3">
-            <label for="img" class="form-label">Cambiar Imagen (Opcional)</label>
-            <input class="form-control" type="file" id="img" name="img" accept="image/*">
-            {% if cliente.img %}
-            <small class="form-text text-muted">Imagen actual: <a href="{{ cliente.img }}" target="_blank">Ver</a></small>
-            <input type="hidden" name="existing_img" value="{{ cliente.img }}">
-            {% endif %}
+                <div class="mb-3">
+                    <label class="form-label">Correo</label>
+                    <input type="email" name="correo" class="form-control" value="{{ cliente.correo }}">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Año</label>
+                    <input type="number" name="anio" class="form-control" value="{{ cliente.anio }}" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Imagen actual</label><br>
+
+                    {% if cliente.img %}
+                        <img src="{{ cliente.img }}" class="img-thumbnail" width="120">
+                    {% else %}
+                        <p class="text-muted">Sin imagen</p>
+                    {% endif %}
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Cambiar imagen</label>
+                    <input type="file" name="img" class="form-control">
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <a href="/clientes" class="btn btn-secondary">🔙 Volver</a>
+                    <button type="submit" class="btn btn-primary">💾 Guardar Cambios</button>
+                </div>
+
+            </form>
+
         </div>
-        
-        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
-        <button type="submit" name="action" value="delete" class="btn btn-danger float-end" 
-                onclick="return confirm('¿Está seguro de marcar este cliente como inactivo/eliminado?');">
-            Marcar como Eliminado (Inactivar)
-        </button>
-    </form>
+    </div>
 </div>
 
 {% include 'footer.html' %}
