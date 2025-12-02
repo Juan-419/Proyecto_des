@@ -1,0 +1,36 @@
+{
+    "sqltools.connections": [
+        {
+            "pgOptions": {
+                "ssl": {
+                    "rejectUnauthorized": true
+                }
+            },
+            "ssh": "Disabled",
+            "previewLimit": 50,
+            "server": "dpg-d4lms1shg0os73bcm5ag-a",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "name": "Taller DB",
+            "database": "taller_jibp",
+            "username": "taller_user",
+            "password": "w3WKMbcJh5VoC5kNmZQFmr7fYGZMUuRM"
+        },
+        {
+            "pgOptions": {
+                "ssl": {
+                    "rejectUnauthorized": true
+                }
+            },
+            "ssh": "Disabled",
+            "previewLimit": 50,
+            "server": "dpg-d4lms1shg0os73bcm5ag-a.ohio-postgres.render.com",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "name": "Taller DB",
+            "database": "taller_jibp",
+            "username": "taller_user",
+            "password": "w3WKMbcJh5VoC5kNmZQFmr7fYGZMUuRM"
+        }
+    ]
+}
