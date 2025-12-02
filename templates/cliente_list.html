@@ -10,13 +10,8 @@
         <div class="card-body">
 
             <div class="d-flex justify-content-between mb-3">
-                <a href="/clientes/new" class="btn btn-success">
-                    ➕ Nuevo Cliente
-                </a>
-
-                <a href="/clientes/eliminados" class="btn btn-danger">
-                    🗑 Ver Eliminados
-                </a>
+                <a href="/clientes/new" class="btn btn-success">➕ Nuevo Cliente</a>
+                <a href="/clientes/eliminados" class="btn btn-danger">🗑 Ver Eliminados</a>
             </div>
 
             {% if clientes %}
@@ -53,8 +48,7 @@
 
                             <td>
                                 {% if cliente.img %}
-                                <img src="{{ cliente.img }}" alt="Foto"
-                                     class="img-thumbnail" style="width: 60px; height: 60px; object-fit: cover;">
+                                <img src="{{ cliente.img }}" class="img-thumbnail" style="width:60px;height:60px;object-fit:cover;">
                                 {% else %}
                                 <span class="text-muted">Sin imagen</span>
                                 {% endif %}
@@ -72,4 +66,8 @@
             {% else %}
             <h4 class="text-center text-muted mt-3 mb-3">No hay clientes registrados.</h4>
             {% endif %}
+        </div>
+    </div>
+</div>
+
 {% include 'footer.html' %}
