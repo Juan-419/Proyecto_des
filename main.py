@@ -17,7 +17,7 @@ app = FastAPI(title="Taller de Carros API")
 
 templates = Jinja2Templates(directory="templates")
 
-# 🔥 IMPORTANTE: MONTAR templates EN EL STATE PARA QUE CLIENTE.PY LO USE
+
 app.state.templates = templates
 
 
