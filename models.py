@@ -3,23 +3,31 @@ from datetime import date
 from sqlmodel import SQLModel, Field, Relationship
 
 
+
 class ReparacionMecanicoLink(SQLModel, table=True):  ## Relacion muchos a muchos
     reparacion_id: Optional[int] = Field(default=None, foreign_key="reparacion.id", primary_key=True)
     mecanico_id: Optional[int] = Field(default=None, foreign_key="mecanico.id", primary_key=True)
+
+
 
 
 class ClienteBase(SQLModel):
     nombre: Optional[str] = None
     telefono: Optional[str] = None
     correo: Optional[str] = None
+    anio: Optional[int] = None     
+
 
 class Cliente(ClienteBase, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
+    img: Optional[str] = None      
     active: bool = Field(default=True)
-    carros: List["Carro"] = Relationship(back_populates="cliente")  ## Relacion uno a muchos
+    
+    carros: List["Carro"] = Relationship(back_populates="cliente")
+
 
 class ClienteCreate(ClienteBase):
-    pass
+    img: Optional[str] = None      
 
 
 class CarroBase(SQLModel):
