@@ -72,14 +72,18 @@ class ReparacionBase(SQLModel):
     costo: Optional[float] = None
 
 
-class Reparacion(ReparacionBase, table=True):
-    id: Optional[int] = Field(default=None, primary_key=True)
-    carro_id: Optional[int] = Field(default=None, foreign_key="carro.id", nullable=True)
-    active: bool = Field(default=True)
-    carro: Optional[Carro] = Relationship(back_populates="reparaciones")
-    mecanicos: List[Mecanico] = Relationship(back_populates="reparaciones", link_model=ReparacionMecanicoLink)
-
-
 class ReparacionCreate(ReparacionBase):
     carro_id: int
     mecanico_ids: Optional[List[int]] = []
+
+
+class Reparacion(ReparacionBase, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    carro_id: Optional[int] = Field(default=None, foreign_key="carro.id")
+    active: bool = Field(default=True)
+
+    carro: Optional[Carro] = Relationship(back_populates="reparaciones")
+    mecanicos: List[Mecanico] = Relationship(
+        back_populates="reparaciones",
+        link_model=ReparacionMecanicoLink
+    )

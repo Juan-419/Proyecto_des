@@ -1,0 +1,39 @@
+{% include 'header.html' %}
+{% include 'navbar.html' %}
+
+<div class="container mt-4">
+    <h2>Editar reparación</h2>
+
+    <form method="post" action="/reparaciones/editar/{{ reparacion.id }}">
+        
+        <div class="mb-3">
+            <label class="form-label">Descripción</label>
+            <textarea class="form-control" name="descripcion" required>{{ reparacion.descripcion }}</textarea>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Fecha</label>
+            <input type="date" class="form-control" name="fecha" value="{{ reparacion.fecha }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Costo</label>
+            <input type="number" step="0.01" class="form-control" name="costo" value="{{ reparacion.costo }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Carro</label>
+            <select name="carro_id" class="form-select" required>
+                {% for carro in carros %}
+                    <option value="{{ carro.id }}" {% if carro.id == reparacion.carro_id %} selected {% endif %}>
+                        {{ carro.marca }} {{ carro.modelo }} ({{ carro.placa }})
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <button class="btn btn-success w-100">Guardar Cambios</button>
+    </form>
+</div>
+
+{% include 'footer.html' %}

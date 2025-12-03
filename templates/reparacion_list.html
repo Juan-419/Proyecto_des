@@ -1,0 +1,50 @@
+{% include 'header.html' %}
+{% include 'navbar.html' %}
+
+<div class="container mt-4">
+
+    <h2 class="mb-3">Reparaciones Registradas</h2>
+
+    <a href="/reparaciones/new" class="btn btn-primary mb-3">➕ Nueva Reparación</a>
+
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Descripción</th>
+                <th>Fecha</th>
+                <th>Costo</th>
+                <th>Carro</th>
+                <th>Dueño</th>
+                <th>Mecánicos</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for r in reparaciones %}
+            <tr>
+                <td>{{ r.id }}</td>
+                <td>{{ r.descripcion }}</td>
+                <td>{{ r.fecha }}</td>
+                <td>{{ r.costo }}</td>
+                <td>{{ r.carro.marca }} {{ r.carro.modelo }} ({{ r.carro.placa }})</td>
+                <td>{{ r.carro.cliente.nombre }}</td>
+                <td>
+                    {% for m in r.mecanicos %}
+                        <span class="badge bg-info text-dark">{{ m.nombre }}</span>
+                    {% endfor %}
+                </td>
+
+                <td>
+                    <a href="/reparaciones/editar/{{ r.id }}" class="btn btn-warning btn-sm">Editar</a>
+                    <a href="/reparaciones/eliminar/{{ r.id }}" class="btn btn-danger btn-sm">Eliminar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+
+{% include 'footer.html' %}
