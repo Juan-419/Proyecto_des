@@ -97,5 +97,5 @@ def restaurar_mecanico(mecanico_id: int, session: Session = Depends(get_session)
         mecanico.active = True
         session.add(mecanico)
         session.commit()
-
     return RedirectResponse("/mecanicos/eliminados", status_code=HTTP_303_SEE_OTHER)
+
