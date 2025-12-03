@@ -50,6 +50,10 @@ class SOAT(SOATBase, table=True):
     carro_id: Optional[int] = Field(default=None, foreign_key="carro.id", unique=True, nullable=True)
     carro: Optional[Carro] = Relationship(back_populates="soat")
 
+class SOATCreate(SOATBase):
+    carro_id: int
+
+
 
 class MecanicoBase(SQLModel):
     nombre: Optional[str] = None
