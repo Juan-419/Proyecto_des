@@ -10,7 +10,7 @@
                 </div>
 
                 <div class="card-body">
-                    <form method="post" action="/carros/new" enctype="multipart/form-data">
+                    <form method="post" action="/carros/new">
 
                         <div class="mb-3">
                             <label class="form-label">Marca</label>
@@ -35,11 +35,6 @@
                                     <option value="{{ cliente.id }}">{{ cliente.nombre }}</option>
                                 {% endfor %}
                             </select>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label">Imagen del carro</label>
-                            <input type="file" class="form-control" name="img">
                         </div>
 
                         <button type="submit" class="btn btn-success w-100">Guardar</button>
