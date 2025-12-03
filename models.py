@@ -74,3 +74,8 @@ class Reparacion(ReparacionBase, table=True):
     active: bool = Field(default=True)
     carro: Optional[Carro] = Relationship(back_populates="reparaciones")
     mecanicos: List[Mecanico] = Relationship(back_populates="reparaciones", link_model=ReparacionMecanicoLink)
+
+
+class ReparacionCreate(ReparacionBase):
+    carro_id: int
+    mecanico_ids: Optional[List[int]] = []
