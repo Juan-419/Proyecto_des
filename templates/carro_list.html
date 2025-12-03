@@ -18,7 +18,13 @@
 
                 <div class="card-body">
                     <h5>{{ carro.marca }} {{ carro.modelo }}</h5>
-                    <p>Placa: {{ carro.placa }}</p>
+                    <p><strong>Placa:</strong> {{ carro.placa }}</p>
+
+                    {% if carro.cliente %}
+                        <p><strong>Propietario:</strong> {{ carro.cliente.nombre }}</p>
+                    {% else %}
+                        <p><strong>Propietario:</strong> Sin dueño asignado</p>
+                    {% endif %}
 
                     <a href="/carros/editar/{{ carro.id }}" class="btn btn-warning btn-sm">Editar</a>
                     <a href="/carros/eliminar/{{ carro.id }}" class="btn btn-danger btn-sm">Eliminar</a>
