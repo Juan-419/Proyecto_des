@@ -1,37 +1,24 @@
 {% include 'header.html' %}
 {% include 'navbar.html' %}
 
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
+<div class="container mt-4">
 
-            <div class="card shadow">
-                <div class="card-header bg-warning text-white text-center">
-                    <h3>Editar Mecánico</h3>
-                </div>
-                <div class="card-body">
+    <h2>Editar Mecánico</h2>
 
-                    <form method="post" action="/mecanicos/editar/{{ mecanico.id }}">
-
-                        <div class="mb-3">
-                            <label class="form-label">Nombre</label>
-                            <input type="text" name="nombre" class="form-control" value="{{ mecanico.nombre }}" required>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label">Especialidad</label>
-                            <input type="text" name="especialidad" class="form-control" value="{{ mecanico.especialidad }}" required>
-                        </div>
-
-                        <button class="btn btn-success w-100">Guardar Cambios</button>
-
-                    </form>
-
-                </div>
-            </div>
-
+    <form method="post" action="/mecanicos/editar/{{ mecanico.id }}">
+        <div class="mb-3">
+            <label class="form-label">Nombre</label>
+            <input type="text" class="form-control" name="nombre" value="{{ mecanico.nombre }}" required>
         </div>
-    </div>
+
+        <div class="mb-3">
+            <label class="form-label">Especialidad</label>
+            <input type="text" class="form-control" name="especialidad" value="{{ mecanico.especialidad }}" required>
+        </div>
+
+        <button class="btn btn-primary w-100">Actualizar</button>
+    </form>
+
 </div>
 
 {% include 'footer.html' %}

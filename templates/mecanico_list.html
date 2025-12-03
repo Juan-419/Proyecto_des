@@ -1,29 +1,23 @@
 {% include 'header.html' %}
 {% include 'navbar.html' %}
 
-<div class="container mt-5">
-
-    <h2>Mecánicos Registrados</h2>
+<div class="container mt-4">
+    <h2>Mecánicos registrados</h2>
 
     <a href="/mecanicos/new" class="btn btn-primary mb-3">➕ Nuevo Mecánico</a>
 
-    <div class="row">
-        {% for mecanico in mecanicos %}
-        <div class="col-md-4 mb-3">
-            <div class="card shadow">
+    <ul class="list-group">
+        {% for m in mecanicos %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            <span>👨‍🔧 {{ m.nombre }} — {{ m.especialidad }}</span>
 
-                <div class="card-body">
-                    <h5>{{ mecanico.nombre }}</h5>
-                    <p>Especialidad: {{ mecanico.especialidad }}</p>
-
-                    <a href="/mecanicos/editar/{{ mecanico.id }}" class="btn btn-warning btn-sm">Editar</a>
-                    <a href="/mecanicos/eliminar/{{ mecanico.id }}" class="btn btn-danger btn-sm">Eliminar</a>
-                </div>
-            </div>
-        </div>
+            <span>
+                <a href="/mecanicos/editar/{{ m.id }}" class="btn btn-warning btn-sm">Editar</a>
+                <a href="/mecanicos/eliminar/{{ m.id }}" class="btn btn-danger btn-sm">Eliminar</a>
+            </span>
+        </li>
         {% endfor %}
-    </div>
-
+    </ul>
 </div>
 
 {% include 'footer.html' %}
