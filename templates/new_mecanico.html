@@ -1,0 +1,35 @@
+{% include 'header.html' %}
+{% include 'navbar.html' %}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white text-center">
+                    <h3>Registrar Mecánico</h3>
+                </div>
+                <div class="card-body">
+
+                    <form method="post" action="/mecanicos/new">
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Nombre</label>
+                            <input type="text" name="nombre" class="form-control" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Especialidad</label>
+                            <input type="text" name="especialidad" class="form-control" required>
+                        </div>
+
+                        <button type="submit" class="btn btn-success w-100">Guardar</button>
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include 'footer.html' %}

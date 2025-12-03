@@ -2,35 +2,39 @@
 {% include 'navbar.html' %}
 
 <div class="container mt-5">
+
     <h2>Carros Eliminados</h2>
 
-    {% if carros %}
-        <div class="row">
-            {% for carro in carros %}
-                <div class="col-md-4 mb-3">
-                    <div class="card shadow">
+    <a href="/carros" class="btn btn-secondary mb-3">⬅ Volver</a>
 
-                        {% if carro.img %}
-                        <img src="{{ carro.img }}" class="card-img-top" style="height:180px; object-fit:cover;">
+    <div class="row">
+        {% for carro in carros %}
+        <div class="col-md-4 mb-3">
+            <div class="card shadow">
+
+                {% if carro.img %}
+                <img src="{{ carro.img }}" class="card-img-top" style="height:180px; object-fit:cover;">
+                {% endif %}
+
+                <div class="card-body">
+                    <h5>{{ carro.marca }} {{ carro.modelo }}</h5>
+                    <p>Placa: {{ carro.placa }}</p>
+
+                    <p><strong>Propietario:</strong> 
+                        {% if carro.cliente %}
+                            {{ carro.cliente.nombre }}
+                        {% else %}
+                            🔴 Sin dueño asignado
                         {% endif %}
+                    </p>
 
-                        <div class="card-body">
-                            <h5>{{ carro.marca }} {{ carro.modelo }}</h5>
-                            <p><strong>Placa:</strong> {{ carro.placa }}</p>
-
-                            <a href="/carros/restaurar/{{ carro.id }}" class="btn btn-success btn-sm">
-                                Restaurar
-                            </a>
-                        </div>
-
-                    </div>
+                    <a href="/carros/restaurar/{{ carro.id }}" class="btn btn-success btn-sm">Restaurar</a>
                 </div>
-            {% endfor %}
+            </div>
         </div>
+        {% endfor %}
+    </div>
 
-    {% else %}
-        <p>No hay carros eliminados</p>
-    {% endif %}
 </div>
 
 {% include 'footer.html' %}

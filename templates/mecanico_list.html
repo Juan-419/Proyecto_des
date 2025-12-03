@@ -1,0 +1,29 @@
+{% include 'header.html' %}
+{% include 'navbar.html' %}
+
+<div class="container mt-5">
+
+    <h2>Mecánicos Registrados</h2>
+
+    <a href="/mecanicos/new" class="btn btn-primary mb-3">➕ Nuevo Mecánico</a>
+
+    <div class="row">
+        {% for mecanico in mecanicos %}
+        <div class="col-md-4 mb-3">
+            <div class="card shadow">
+
+                <div class="card-body">
+                    <h5>{{ mecanico.nombre }}</h5>
+                    <p>Especialidad: {{ mecanico.especialidad }}</p>
+
+                    <a href="/mecanicos/editar/{{ mecanico.id }}" class="btn btn-warning btn-sm">Editar</a>
+                    <a href="/mecanicos/eliminar/{{ mecanico.id }}" class="btn btn-danger btn-sm">Eliminar</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+
+{% include 'footer.html' %}
