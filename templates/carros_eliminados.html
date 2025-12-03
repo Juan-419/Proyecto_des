@@ -1,29 +1,36 @@
 {% include 'header.html' %}
 {% include 'navbar.html' %}
 
-<div class="container mt-4">
+<div class="container mt-5">
     <h2>Carros Eliminados</h2>
 
-    <table class="table table-bordered">
-        <tr>
-            <th>ID</th>
-            <th>Marca</th>
-            <th>Modelo</th>
-            <th>Placa</th>
-            <th>Acciones</th>
-        </tr>
-        {% for carro in carros %}
-        <tr>
-            <td>{{ carro.id }}</td>
-            <td>{{ carro.marca }}</td>
-            <td>{{ carro.modelo }}</td>
-            <td>{{ carro.placa }}</td>
-            <td>
-                <a href="/carros/restaurar/{{ carro.id }}" class="btn btn-success btn-sm">Restaurar</a>
-            </td>
-        </tr>
-        {% endfor %}
-    </table>
+    {% if carros %}
+        <div class="row">
+            {% for carro in carros %}
+                <div class="col-md-4 mb-3">
+                    <div class="card shadow">
+
+                        {% if carro.img %}
+                        <img src="{{ carro.img }}" class="card-img-top" style="height:180px; object-fit:cover;">
+                        {% endif %}
+
+                        <div class="card-body">
+                            <h5>{{ carro.marca }} {{ carro.modelo }}</h5>
+                            <p><strong>Placa:</strong> {{ carro.placa }}</p>
+
+                            <a href="/carros/restaurar/{{ carro.id }}" class="btn btn-success btn-sm">
+                                Restaurar
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+    {% else %}
+        <p>No hay carros eliminados</p>
+    {% endif %}
 </div>
 
 {% include 'footer.html' %}

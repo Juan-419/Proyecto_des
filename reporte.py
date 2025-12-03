@@ -42,7 +42,7 @@ def generar_reporte_pdf(session: Session = Depends(get_session)):
     c.drawString(50, y, f"Total Clientes: {len(clientes)} | Carros: {len(carros)} | Mecánicos: {len(mecanicos)} | Reparaciones: {len(reparaciones)} | SOATs: {len(soats)}")
     y -= 30
 
-    # === Sección de Clientes ===
+
     c.setFont("Helvetica-Bold", 13)
     c.drawString(50, y, "Clientes:")
     y -= 20
@@ -58,7 +58,7 @@ def generar_reporte_pdf(session: Session = Depends(get_session)):
         c.drawString(60, y, f"ID: {cliente.id} | Nombre: {nombre} | Teléfono: {telefono} | Correo: {correo}")
         y -= 15
 
-    # === Sección de Carros ===
+ 
     y -= 10
     c.setFont("Helvetica-Bold", 13)
     c.drawString(50, y, "Carros:")
@@ -76,7 +76,7 @@ def generar_reporte_pdf(session: Session = Depends(get_session)):
         c.drawString(60, y, f"ID: {carro.id} | Marca: {marca} | Modelo: {modelo} | Placa: {placa} | Cliente ID: {cliente_id}")
         y -= 15
 
-    # === Sección de Mecánicos ===
+   
     y -= 10
     c.setFont("Helvetica-Bold", 13)
     c.drawString(50, y, "Mecánicos:")
@@ -95,7 +95,7 @@ def generar_reporte_pdf(session: Session = Depends(get_session)):
         c.drawString(60, y, f"ID: {mec.id} | Nombre: {nombre} | Especialidad: {especialidad}")
         y -= 15
 
-    # === Sección de Reparaciones ===
+ 
     y -= 10
     c.setFont("Helvetica-Bold", 13)
     c.drawString(50, y, "Reparaciones:")
@@ -112,7 +112,7 @@ def generar_reporte_pdf(session: Session = Depends(get_session)):
         c.drawString(60, y, f"ID: {rep.id} | Descripción: {descripcion} | Costo: {costo} | Fecha: {fecha}")
         y -= 15
 
-    # === Sección de SOAT ===
+
     y -= 10
     c.setFont("Helvetica-Bold", 13)
     c.drawString(50, y, "SOATs:")

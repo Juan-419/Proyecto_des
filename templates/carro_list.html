@@ -1,35 +1,33 @@
 {% include 'header.html' %}
 {% include 'navbar.html' %}
 
-<div class="container mt-4">
-    <h2>Lista de Carros</h2>
+<div class="container mt-5">
 
-    <a href="/carros/new" class="btn btn-primary mb-3">+ Nuevo Carro</a>
+    <h2>Carros registrados</h2>
 
-    <table class="table table-striped">
-        <tr>
-            <th>ID</th>
-            <th>Marca</th>
-            <th>Modelo</th>
-            <th>Placa</th>
-            <th>Dueño</th>
-            <th>Acciones</th>
-        </tr>
+    <a href="/carros/new" class="btn btn-primary mb-3">➕ Nuevo Carro</a>
 
+    <div class="row">
         {% for carro in carros %}
-        <tr>
-            <td>{{ carro.id }}</td>
-            <td>{{ carro.marca }}</td>
-            <td>{{ carro.modelo }}</td>
-            <td>{{ carro.placa }}</td>
-            <td>{{ carro.cliente.nombre if carro.cliente else "Sin dueño" }}</td>
-            <td>
-                <a href="/carros/editar/{{ carro.id }}" class="btn btn-warning btn-sm">Editar</a>
-                <a href="/carros/eliminar/{{ carro.id }}" class="btn btn-danger btn-sm">Eliminar</a>
-            </td>
-        </tr>
+        <div class="col-md-4 mb-3">
+            <div class="card shadow">
+
+                {% if carro.img %}
+                <img src="{{ carro.img }}" class="card-img-top" style="height:180px; object-fit:cover;">
+                {% endif %}
+
+                <div class="card-body">
+                    <h5>{{ carro.marca }} {{ carro.modelo }}</h5>
+                    <p>Placa: {{ carro.placa }}</p>
+
+                    <a href="/carros/editar/{{ carro.id }}" class="btn btn-warning btn-sm">Editar</a>
+                    <a href="/carros/eliminar/{{ carro.id }}" class="btn btn-danger btn-sm">Eliminar</a>
+                </div>
+            </div>
+        </div>
         {% endfor %}
-    </table>
+    </div>
+
 </div>
 
 {% include 'footer.html' %}

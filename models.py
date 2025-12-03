@@ -4,7 +4,7 @@ from sqlmodel import SQLModel, Field, Relationship
 
 
 
-class ReparacionMecanicoLink(SQLModel, table=True):  ## Relacion muchos a muchos
+class ReparacionMecanicoLink(SQLModel, table=True):  
     reparacion_id: Optional[int] = Field(default=None, foreign_key="reparacion.id", primary_key=True)
     mecanico_id: Optional[int] = Field(default=None, foreign_key="mecanico.id", primary_key=True)
 
@@ -39,9 +39,11 @@ class CarroBase(SQLModel):
 class Carro(CarroBase, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
     cliente_id: Optional[int] = Field(default=None, foreign_key="cliente.id", nullable=True)
+    img: Optional[str] = None  
     active: bool = Field(default=True)
+
     cliente: Optional[Cliente] = Relationship(back_populates="carros")
-    soat: Optional["SOAT"] = Relationship(back_populates="carro", sa_relationship_kwargs={"uselist": False}) ## Relacion uno a uno
+    soat: Optional["SOAT"] = Relationship(back_populates="carro", sa_relationship_kwargs={"uselist": False})
     reparaciones: List["Reparacion"] = Relationship(back_populates="carro")
 
 class CarroCreate(CarroBase):
@@ -53,7 +55,7 @@ class SOATBase(SQLModel):
 
 class SOAT(SOATBase, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
-    carro_id: Optional[int] = Field(default=None, foreign_key="carro.id", unique=True, nullable=True)  ## Relacion uno a uno 
+    carro_id: Optional[int] = Field(default=None, foreign_key="carro.id", unique=True, nullable=True)
     carro: Optional[Carro] = Relationship(back_populates="soat")
 
 class SOATCreate(SOATBase):

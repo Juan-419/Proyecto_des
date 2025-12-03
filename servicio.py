@@ -68,7 +68,7 @@ def list_servicios_by_carro_html(request: Request, carro_id: int, session: Sessi
     ).all()
     
     return templates.TemplateResponse(
-        "carro_servicios.html", # Nuevo template para mostrar la lista
+        "carro_servicios.html",  
         {"request": request, "carro": carro, "servicios": servicios} 
     )
 

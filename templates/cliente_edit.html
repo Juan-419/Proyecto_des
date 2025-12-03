@@ -2,57 +2,59 @@
 {% include 'navbar.html' %}
 
 <div class="container mt-5">
-    <div class="card shadow">
-        <div class="card-header bg-warning">
-            <h3 class="mb-0 text-center">Editar Cliente</h3>
-        </div>
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow">
 
-        <div class="card-body">
-
-            <form method="post" enctype="multipart/form-data">
-
-                <div class="mb-3">
-                    <label class="form-label">Nombre</label>
-                    <input type="text" name="nombre" class="form-control" value="{{ cliente.nombre }}" required>
+                <div class="card-header bg-warning text-white">
+                    <h2 class="text-center mb-0">Editar Carro</h2>
                 </div>
 
-                <div class="mb-3">
-                    <label class="form-label">Teléfono</label>
-                    <input type="text" name="telefono" class="form-control" value="{{ cliente.telefono }}">
+                <div class="card-body">
+                    <form method="post" action="/carros/editar/{{ carro.id }}" enctype="multipart/form-data">
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Marca</label>
+                            <input type="text" class="form-control" name="marca" value="{{ carro.marca }}" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Modelo</label>
+                            <input type="text" class="form-control" name="modelo" value="{{ carro.modelo }}" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Placa</label>
+                            <input type="text" class="form-control" name="placa" value="{{ carro.placa }}" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Propietario</label>
+                            <select name="cliente_id" class="form-select" required>
+                                {% for cliente in clientes %}
+                                    <option value="{{ cliente.id }}" {% if cliente.id == carro.cliente_id %}selected{% endif %}>
+                                        {{ cliente.nombre }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        {% if carro.img %}
+                        <p>Imagen actual:</p>
+                        <img src="{{ carro.img }}" width="120">
+                        {% endif %}
+
+                        <div class="mb-3">
+                            <label class="form-label">Subir nueva imagen</label>
+                            <input type="file" class="form-control" name="img">
+                        </div>
+
+                        <button class="btn btn-warning w-100">Guardar cambios</button>
+
+                    </form>
                 </div>
 
-                <div class="mb-3">
-                    <label class="form-label">Correo</label>
-                    <input type="email" name="correo" class="form-control" value="{{ cliente.correo }}">
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label">Año</label>
-                    <input type="number" name="anio" class="form-control" value="{{ cliente.anio }}" required>
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label">Imagen actual</label><br>
-
-                    {% if cliente.img %}
-                        <img src="{{ cliente.img }}" class="img-thumbnail" width="120">
-                    {% else %}
-                        <p class="text-muted">Sin imagen</p>
-                    {% endif %}
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label">Cambiar imagen</label>
-                    <input type="file" name="img" class="form-control">
-                </div>
-
-                <div class="d-flex justify-content-between">
-                    <a href="/clientes" class="btn btn-secondary">🔙 Volver</a>
-                    <button type="submit" class="btn btn-primary">💾 Guardar Cambios</button>
-                </div>
-
-            </form>
-
+            </div>
         </div>
     </div>
 </div>
