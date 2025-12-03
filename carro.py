@@ -5,7 +5,7 @@ from starlette.status import HTTP_303_SEE_OTHER
 from db import get_session
 from models import Carro, Cliente
 
-router = APIRouter(prefix="/carros", tags=["Carros"])
+router = APIRouter(tags=["Carros"])
 
 
 @router.get("/", response_class=HTMLResponse)
