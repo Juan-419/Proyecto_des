@@ -1,0 +1,54 @@
+{% include 'header.html' %}
+{% include 'navbar.html' %}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow">
+                <div class="card-header bg-warning text-white">
+                    <h2 class="text-center mb-0">Editar Carro</h2>
+                </div>
+
+                <div class="card-body">
+                    <form method="post">
+
+                        <div class="mb-3">
+                            <label class="form-label">Marca</label>
+                            <input type="text" class="form-control" name="marca" value="{{ carro.marca }}" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Modelo</label>
+                            <input type="text" class="form-control" name="modelo" value="{{ carro.modelo }}" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Placa</label>
+                            <input type="text" class="form-control" name="placa" value="{{ carro.placa }}" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Cliente</label>
+                            <select name="cliente_id" class="form-select" required>
+                                {% for cliente in clientes %}
+                                    <option value="{{ cliente.id }}" {% if cliente.id == carro.cliente_id %}selected{% endif %}>
+                                        {{ cliente.nombre }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-warning btn-lg mt-3">
+                                Guardar cambios
+                            </button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include 'footer.html' %}
