@@ -1,20 +1,65 @@
-los básicos: # Entornos virtuales
+
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.sqlite3
+*.db
+instance/
+.env
+*.env
+.env.*
+secrets/
+settings.json
+
+
+
 .venv/
 venv/
+env/
+ENV/
 
-# Cache de Python
-_pycache_/
-*.pyc
 
-# Configuración de IDEs
-.idea/
+
+
 .vscode/
+.idea/
+*.swp
+*.swo
 
-# Base de datos SQLite
-*.db
 
-# Archivos del sistema
+
+*.log
+logs/
+
+
+
+.cache/
+*.pycache/
+pip-wheel-metadata/
+__pycache__/
+
+
+
+build/
+dist/
+*.egg-info/
+
+
+uploads/
+static/uploads/
+
+
+
+render_build/
+render_logs/
+
+
+
 .DS_Store
-_init_.py/
+Thumbs.db
 
-.env
+
+backup/
+data/
+temp/
