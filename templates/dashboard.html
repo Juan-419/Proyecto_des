@@ -1,0 +1,42 @@
+{% include 'header.html' %}
+{% include 'navbar.html' %}
+
+<div class="container mt-5">
+
+    <h2>📊 Panel de Control</h2>
+
+    <div class="row mt-4">
+
+        <div class="col-md-3">
+            <div class="card shadow p-3 text-center bg-primary text-white">
+                <h4>{{ total_clientes }}</h4>
+                <p>Clientes Registrados</p>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card shadow p-3 text-center bg-success text-white">
+                <h4>{{ total_carros }}</h4>
+                <p>Carros Registrados</p>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card shadow p-3 text-center bg-warning text-dark">
+                <h4>{{ total_mecanicos }}</h4>
+                <p>Mecánicos</p>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card shadow p-3 text-center bg-danger text-white">
+                <h4>{{ reparaciones_activas }}</h4>
+                <p>Reparaciones Activas</p>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+{% include 'footer.html' %}

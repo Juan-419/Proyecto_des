@@ -12,6 +12,9 @@ from soat import router as soat_router
 from reporte import router as reportes_router
 from supa.supabase_upload import upload_to_bucket
 from supabase import create_client
+from dashboard import router as dashboard_router
+
+
 
 app = FastAPI(title="Taller de Carros API")
 
@@ -33,6 +36,7 @@ app.include_router(mecanico_router, prefix="/mecanicos", tags=["Mecánicos"])
 app.include_router(reparacion_router, prefix="/reparaciones", tags=["Reparaciones"])
 app.include_router(soat_router, prefix="/soats", tags=["SOATs"])
 app.include_router(reportes_router)
+app.include_router(dashboard_router, prefix="/dashboard", tags=["Dashboard"])
 
 
 @app.get("/", response_class=HTMLResponse, tags=["Vistas HTML"])
