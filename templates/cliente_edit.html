@@ -7,41 +7,35 @@
             <div class="card shadow">
 
                 <div class="card-header bg-warning text-white">
-                    <h2 class="text-center mb-0">Editar Carro</h2>
+                    <h2 class="text-center mb-0">Editar Cliente</h2>
                 </div>
 
                 <div class="card-body">
-                    <form method="post" action="/carros/editar/{{ carro.id }}" enctype="multipart/form-data">
-                        
+                    <form method="post" action="/clientes/editar/{{ cliente.id }}" enctype="multipart/form-data">
+
                         <div class="mb-3">
-                            <label class="form-label">Marca</label>
-                            <input type="text" class="form-control" name="marca" value="{{ carro.marca }}" required>
+                            <label class="form-label">Nombre</label>
+                            <input type="text" class="form-control" name="nombre" value="{{ cliente.nombre }}" required>
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label">Modelo</label>
-                            <input type="text" class="form-control" name="modelo" value="{{ carro.modelo }}" required>
+                            <label class="form-label">Teléfono</label>
+                            <input type="text" class="form-control" name="telefono" value="{{ cliente.telefono }}">
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label">Placa</label>
-                            <input type="text" class="form-control" name="placa" value="{{ carro.placa }}" required>
+                            <label class="form-label">Correo</label>
+                            <input type="email" class="form-control" name="correo" value="{{ cliente.correo }}">
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label">Propietario</label>
-                            <select name="cliente_id" class="form-select" required>
-                                {% for cliente in clientes %}
-                                    <option value="{{ cliente.id }}" {% if cliente.id == carro.cliente_id %}selected{% endif %}>
-                                        {{ cliente.nombre }}
-                                    </option>
-                                {% endfor %}
-                            </select>
+                            <label class="form-label">Año</label>
+                            <input type="number" class="form-control" name="anio" value="{{ cliente.anio }}">
                         </div>
 
-                        {% if carro.img %}
+                        {% if cliente.img %}
                         <p>Imagen actual:</p>
-                        <img src="{{ carro.img }}" width="120">
+                        <img src="{{ cliente.img }}" width="120">
                         {% endif %}
 
                         <div class="mb-3">
