@@ -6,16 +6,16 @@ from models import Cliente, Carro, Mecanico, Reparacion
 
 router = APIRouter()
 
-
 @router.get("/", response_class=HTMLResponse)
 def dashboard(request: Request, session: Session = Depends(get_session)):
-    total_clientes = session.exec(select(Cliente)).count()
-    total_carros = session.exec(select(Carro)).count()
-    total_mecanicos = session.exec(select(Mecanico)).count()
-    total_reparaciones = session.exec(select(Reparacion)).count()
-    reparaciones_activas = session.exec(
-        select(Reparacion).where(Reparacion.active == True)
-    ).count()
+    
+    total_clientes = len(session.exec(select(Cliente)).all())
+    total_carros = len(session.exec(select(Carro)).all())
+    total_mecanicos = len(session.exec(select(Mecanico)).all())
+    total_reparaciones = len(session.exec(select(Reparacion)).all())
+    reparaciones_activas = len(
+        session.exec(select(Reparacion).where(Reparacion.active == True)).all()
+    )
 
     return request.app.state.templates.TemplateResponse(
         "dashboard.html",
