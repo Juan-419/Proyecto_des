@@ -2,48 +2,33 @@
 {% include 'navbar.html' %}
 
 <div class="container mt-4">
-
-    <h2 class="mb-3">Reparaciones Registradas</h2>
+    <h2>Reparaciones Registradas</h2>
 
     <a href="/reparaciones/new" class="btn btn-primary mb-3">➕ Nueva Reparación</a>
 
-    <table class="table table-bordered table-striped">
-        <thead class="table-dark">
-            <tr>
-                <th>ID</th>
-                <th>Descripción</th>
-                <th>Fecha</th>
-                <th>Costo</th>
-                <th>Carro</th>
-                <th>Dueño</th>
-                <th>Mecánicos</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
+    <div class="row">
+        {% for rep in reparaciones %}
+        <div class="col-md-4 mb-3">
+            <div class="card shadow p-3">
+                <h5>{{ rep.descripcion }}</h5>
+                <p><strong>Costo:</strong> ${{ rep.costo }}</p>
+                <p><strong>Fecha:</strong> {{ rep.fecha }}</p>
 
-        <tbody>
-            {% for r in reparaciones %}
-            <tr>
-                <td>{{ r.id }}</td>
-                <td>{{ r.descripcion }}</td>
-                <td>{{ r.fecha }}</td>
-                <td>{{ r.costo }}</td>
-                <td>{{ r.carro.marca }} {{ r.carro.modelo }} ({{ r.carro.placa }})</td>
-                <td>{{ r.carro.cliente.nombre }}</td>
-                <td>
-                    {% for m in r.mecanicos %}
-                        <span class="badge bg-info text-dark">{{ m.nombre }}</span>
+                {% set carro = carros.get(rep.carro_id) %}
+                {% if carro %}
+                    <p><strong>Carro:</strong> {{ carro.marca }} {{ carro.modelo }} - {{ carro.placa }}</p>
+                {% endif %}
+
+                <p><strong>Mecánicos:</strong></p>
+                <ul>
+                    {% for mec in mecanicos_por_rep.get(rep.id) %}
+                        <li>{{ mec.nombre }} ({{ mec.especialidad }})</li>
                     {% endfor %}
-                </td>
-
-                <td>
-                    <a href="/reparaciones/editar/{{ r.id }}" class="btn btn-warning btn-sm">Editar</a>
-                    <a href="/reparaciones/eliminar/{{ r.id }}" class="btn btn-danger btn-sm">Eliminar</a>
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+                </ul>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
 
 </div>
 

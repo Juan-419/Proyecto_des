@@ -7,7 +7,7 @@ from db import get_session
 
 router = APIRouter()
 
-# ========== VISTAS HTML ==========
+
 
 @router.get("/", response_class=HTMLResponse)
 def reparaciones_html(request: Request, session: Session = Depends(get_session)):
@@ -15,10 +15,34 @@ def reparaciones_html(request: Request, session: Session = Depends(get_session))
         select(Reparacion).where(Reparacion.active == True)
     ).all()
 
+    carros = {c.id: c for c in session.exec(select(Carro)).all()}
+    mecanicos_por_rep = {}
+
+    for rep in reparaciones:
+        links = session.exec(
+            select(ReparacionMecanicoLink).where(
+                ReparacionMecanicoLink.reparacion_id == rep.id
+            )
+        ).all()
+
+        mecanicos = []
+        for l in links:
+            mec = session.get(Mecanico, l.mecanico_id)
+            if mec:
+                mecanicos.append(mec)
+
+        mecanicos_por_rep[rep.id] = mecanicos
+
     return request.app.state.templates.TemplateResponse(
         "reparacion_list.html",
-        {"request": request, "reparaciones": reparaciones}
+        {
+            "request": request,
+            "reparaciones": reparaciones,
+            "carros": carros,
+            "mecanicos_por_rep": mecanicos_por_rep
+        }
     )
+
 
 
 @router.get("/new", response_class=HTMLResponse)
@@ -30,6 +54,7 @@ def nueva_reparacion_html(request: Request, session: Session = Depends(get_sessi
         "reparacion_new.html",
         {"request": request, "carros": carros, "mecanicos": mecanicos}
     )
+
 
 
 @router.post("/new")
@@ -48,6 +73,7 @@ def crear_reparacion_html(
         fecha=fecha,
         carro_id=carro_id
     )
+
     session.add(reparacion)
     session.commit()
     session.refresh(reparacion)
