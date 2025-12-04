@@ -30,6 +30,7 @@ def formulario_nuevo_cliente(request: Request):
 
 
 
+
 @router.post("/new")
 async def crear_cliente(
     nombre: str = Form(...),
