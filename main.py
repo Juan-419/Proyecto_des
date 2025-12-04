@@ -36,7 +36,9 @@ app.include_router(mecanico_router, prefix="/mecanicos", tags=["Mecánicos"])
 app.include_router(reparacion_router, prefix="/reparaciones", tags=["Reparaciones"])
 app.include_router(soat_router, prefix="/soats", tags=["SOATs"])
 app.include_router(reportes_router)
+
 app.include_router(dashboard_router, prefix="/dashboard", tags=["Dashboard"])
+
 
 
 @app.get("/", response_class=HTMLResponse, tags=["Vistas HTML"])

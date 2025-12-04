@@ -6,6 +6,7 @@ from models import Cliente, Carro, Mecanico, Reparacion
 
 router = APIRouter()
 
+
 @router.get("/", response_class=HTMLResponse)
 def dashboard(request: Request, session: Session = Depends(get_session)):
     total_clientes = session.exec(select(Cliente)).count()
