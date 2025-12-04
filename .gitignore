@@ -1,0 +1,20 @@
+los básicos: # Entornos virtuales
+.venv/
+venv/
+
+# Cache de Python
+_pycache_/
+*.pyc
+
+# Configuración de IDEs
+.idea/
+.vscode/
+
+# Base de datos SQLite
+*.db
+
+# Archivos del sistema
+.DS_Store
+_init_.py/
+
+.env
