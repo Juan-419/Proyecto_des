@@ -48,5 +48,6 @@
             "username": "taller_user",
             "password": "w3WKMbcJh5VoC5kNmZQFmr7fYGZMUuRM"
         }
-    ]
+    ],
+    "python-envs.defaultEnvManager": "ms-python.python:system"
 }
