@@ -13,7 +13,9 @@ from reporte import router as reportes_router
 from supa.supabase_upload import upload_to_bucket
 from supabase import create_client
 from dashboard import router as dashboard_router
+from dotenv import load_dotenv
 
+load_dotenv()
 
 
 app = FastAPI(title="Taller de Carros API")
